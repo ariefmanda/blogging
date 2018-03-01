@@ -72,3 +72,17 @@ module.exports = {
     })
   }
 }
+
+// queue.create('email',{
+//     email:data.UserId.email,
+//     text: `Anda mendapatkan Jawaban baru untuk pertanyaan ${data.QuestionId.question}`,
+//     subject: 'HacktivOverFlor-Simple by ariefmanda',
+//     html: `<p>Anda mendapatkan Jawaban baru untuk pertanyaan: ${data.QuestionId.question}<p><br>
+//     Please check in : <a href="http://overflow.feedomain.tk">Hacktiv Over Flow Simple</a>`
+//   }).save(err=>{
+//     if(err){
+//       next(err)
+//     }else{
+//       res.json(answers)
+//     }
+//   })
