@@ -15,7 +15,7 @@ Dibuat dengan ❤️
 #### ADMIN
 
 BaseURL : localhost:3000 <br>
-Kue-UI	: localhost:6387
+Kue-UI	: localhost:6363
 
 | Router 	                | HTTP | Description       |
 |-----------------------    |:----:|-------------------|
