@@ -6,7 +6,7 @@ module.exports = {
       .then(user=>{
           console.log(user);
         if(user){
-          let token = jwt.sign({user}, 'loveyou')
+          let token = jwt.sign({user}, process.env.secretjwt)
           console.log(token);
           res.send({
             message:'akun sudah ada',

@@ -13,7 +13,7 @@
 
           <!-- Search Widget -->
           <div class="card my-4">
-            <h5 class="card-header">Search</h5>
+            <h5 class="card-header">Search By Category</h5>
             <div class="card-body">
               <div class="input-group">
                 <input type="text" v-model="search" class="form-control" placeholder="Search for category">
@@ -39,7 +39,7 @@ export default {
       return {
           blogs:[],
           blogsAboslute:[],
-          search:''
+          search:'',
       }
   },
   components: {

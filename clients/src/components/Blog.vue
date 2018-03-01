@@ -5,7 +5,11 @@
         <h2 class="card-title">{{blog.title}}</h2>
         <h6 class="card-title"> Category: {{blog.category}}</h6>
         <p class="card-text">{{blog.content}}</p>
-        <a href="#" class="btn btn-primary">Read More &rarr;</a>
+        <router-link :to="'/blog/'+blog._id">
+            <button class="btn btn-primary">
+                Read More &rarr;
+            </button>
+        </router-link>
     </div>
     <div class="card-footer text-muted">
         {{blog.createdAt}}

@@ -17,6 +17,7 @@ var kue = require('kue')
   });
 
 var mongoose = require('mongoose')
+
 require('dotenv').config()
 
 mongoose.connection.openUri('mongodb://localhost/blogging');

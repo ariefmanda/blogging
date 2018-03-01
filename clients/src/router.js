@@ -4,11 +4,14 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Blogs from './views/Blogs.vue'
 import Dashboard from './views/Dashboard.vue'
+import NotFound from './views/NotFound.vue'
 import BlogDetail from './views/BlogDetail.vue'
 
 Vue.use(Router)
 
 var router = new Router({
+  mode: 'history',
+  history:true,
   routes: [
     {
       path: '/',
@@ -36,7 +39,26 @@ var router = new Router({
       name: 'dashboard',
       component: Dashboard
     },
+    {
+      path: '*',
+      name: 'notfound',
+      component: NotFound
+    },
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.name=="dashboard") {
+    if (localStorage.getItem("token")) {
+      next();
+    } else {
+      next({
+        name: 'notfound'
+      });
+    }
+  } else {
+    next();
+  }
+});
 
 export default router
