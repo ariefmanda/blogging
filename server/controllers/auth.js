@@ -2,11 +2,12 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 module.exports = {
   signin:(req,res,next)=>{
-    console.log(process.env);
     User.findOne({'email':req.fb.email})
       .then(user=>{
+          console.log(user);
         if(user){
-          let token = jwt.sign({user}, process.env.secretjwt)
+          let token = jwt.sign({user}, 'loveyou')
+          console.log(token);
           res.send({
             message:'akun sudah ada',
             name:user.name,
@@ -23,7 +24,7 @@ module.exports = {
             })
             .then(userCreate =>{
               user=userCreate
-              let token = jwt.sign({user}, process.env.secretjwt)
+              let token = jwt.sign({user}, 'loveyou')
               res.send({
                 message: 'add success',
                 name:user.name,

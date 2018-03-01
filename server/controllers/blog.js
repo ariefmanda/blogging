@@ -1,4 +1,5 @@
 const model = require('../models/blog');
+const User = require('../models/user');
 module.exports = {
   getAll: (req,res,next)=>{
     model.find()
@@ -11,7 +12,7 @@ module.exports = {
     })
   },
   getByIdUser: (req,res,next)=>{
-    model.findById({
+    model.find({
       UserId:req.params.id
     })
     .then(blogs=>{
@@ -39,7 +40,6 @@ module.exports = {
       UserId: req.decoded._id,
       category: req.body.category
     })
-    .populate(['UserId'])
     .then(blog=>{
       res.json(blog)
     })
@@ -52,7 +52,6 @@ module.exports = {
       title: req.body.title,
       content: req.body.content,
       UserId: req.decoded._id,
-      imgUrl: req.file.cloudStoragePublicUrl,
       category: req.body.category
     })
     .then(blog=>{

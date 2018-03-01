@@ -9,11 +9,11 @@ let image = require('../multer')
 router.get('/user/:id', controller.getByIdUser)
 router.get('/', controller.getAll)
 
-router.post('/',auth, image.multer.single('imgUrl'),image.uploadGCS,controller.create)
+router.post('/', auth , image.multer.single('imgUrl'),image.uploadGCS,controller.create)
 
 router.get('/:id', controller.getById)
 
-router.put('/:id',auth,image.multer.single('imgUrl'),image.uploadGCS, controller.edit)
+router.put('/:id',auth, controller.edit)
 
 router.delete('/:id',auth, controller.destroy)
 

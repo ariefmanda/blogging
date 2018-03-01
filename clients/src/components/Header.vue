@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <router-link to="/category" style="cursor:pointer;color:white">Blog
+          <router-link to="/blog" style="cursor:pointer;color:white">Blog
             <span class="sr-only">(current)</span>
           </router-link>
         </li>
@@ -64,15 +64,12 @@ export default {
       return this.$store.state.token;
     },
   },
-  created() {
-    this.start();
-  },
   methods: {
     setLogin(cb) {
-      console.log('login fb');
       FB.login(
         (response) => {
           if (response.authResponse) {
+              console.log(response.authResponse,'sadsa');
             localStorage.setItem('fbtoken', response.authResponse.accessToken);
             cb(response.authResponse.accessToken);
           } else {
@@ -109,13 +106,12 @@ export default {
     logout() {
       localStorage.clear();
       this.$store.dispatch('setToken', null);
-      this.$store.dispatch('setUserId', null);
     },
     dashboard(){
       this.$router.push({
         name:'dashboard'
       })
-    }
+    },
   },
 };
 </script>
