@@ -24,7 +24,7 @@
 </table>
     </div>
 <div class="col-md-3">
-    <form>
+    <form @submit.prevent="adding">
     <fieldset>
         <div class="form-group">
         <label for="exampleInputEmail1">title</label>
@@ -42,7 +42,7 @@
             <label for="exampleInputFile">File input</label>
             <input type="file" class="form-control-file" id="imgUrl" aria-describedby="fileHelp">
         </div>
-        <button @click="adding" type="submit" class="btn btn-primary">{{(!editId)?'Add':'Update'}}</button>
+        <button class="btn btn-primary">{{(!editId)?'Add':'Update'}}</button>
     </fieldset>
     </form>
     <br>

@@ -10,6 +10,8 @@ import BlogDetail from './views/BlogDetail.vue'
 Vue.use(Router)
 
 var router = new Router({
+  mode: 'history',
+  history:true,
   routes: [
     {
       path: '/',
