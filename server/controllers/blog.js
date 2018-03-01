@@ -1,5 +1,7 @@
 const model = require("../models/blog");
 const User = require("../models/user");
+var kue = require('kue')
+  , queue = kue.createQueue();
 module.exports = {
   getAll: (req, res, next) => {
     model
@@ -36,6 +38,7 @@ module.exports = {
       });
   },
   create: (req, res, next) => {
+      console.log(req.decoded);
     model
       .create({
         title: req.body.title,
@@ -45,27 +48,26 @@ module.exports = {
         category: req.body.category
       })
       .then(blog => {
-        // User.findById(req.decoded._id)
-        //   .then(user => {
-        //     queue
-        //       .create("email", {
-        //         email: user.email,
-        //         text: `Hey User`,
-        //         subject: "bloging-Simple by ariefmanda",
-        //         html: `helo mr. ${user.name}<br><p>Terima kasih telah menggunakan aplikasi kami<p>`
-        //       })
-        //       .save(err => {
-        //         if (err) {
-        //           next(err);
-        //         } else {
-        //           res.json(blog);
-        //         }
-        //       });
-        //   })
-        //   .catch(err => {
-        //     next(err);
-        //   });
-        res.json(blog);
+          User.findById(req.decoded._id)
+          .then(user => {
+            queue
+              .create("email", {
+                email: user.email,
+                text: `Hey User`,
+                subject: "bloging-Simple by ariefmanda",
+                html: `helo mr. ${user.name}<br><p>Terima kasih telah menggunakan aplikasi kami<p>`
+              })
+              .save(err => {
+                if (err) {
+                  next(err);
+                } else {
+                  res.json(blog);
+                }
+              });
+          })
+          .catch(err => {
+            next(err);
+          });
       })
       .catch(err => {
         next(err);
@@ -80,7 +82,7 @@ module.exports = {
         category: req.body.category
       })
       .then(blog => {
-        res.json(blog);
+        res.json(blog)
       })
       .catch(err => {
         next(err);

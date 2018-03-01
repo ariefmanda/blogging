@@ -24,7 +24,7 @@
 </table>
     </div>
 <div class="col-md-3">
-    <form @submit.native="add">
+    <form>
     <fieldset>
         <div class="form-group">
         <label for="exampleInputEmail1">title</label>
@@ -42,9 +42,11 @@
             <label for="exampleInputFile">File input</label>
             <input type="file" class="form-control-file" id="imgUrl" aria-describedby="fileHelp">
         </div>
-        <button type="submit" class="btn btn-primary">{{(!editId)?'Add':'Update'}}</button>
+        <button @click="adding" type="submit" class="btn btn-primary">{{(!editId)?'Add':'Update'}}</button>
     </fieldset>
     </form>
+    <br>
+    <button class="btn btn-warning" @click="clearing">clear</button>
 </div>
 </div>
 </template>
@@ -90,7 +92,7 @@ export default {
         })
         .then(({ data }) => {
           this.blogs = data;
-          this.clear();
+          this.clearing();
         })
         .catch(err => {
           this.$notify({
@@ -105,7 +107,7 @@ export default {
       this.category = data.category;
       this.content = data.content;
     },
-    add() {
+    adding() {
       if (this.editId) {
         this.$axios
           .put(
@@ -135,33 +137,40 @@ export default {
             });
           });
       } else {
-        let formdata = new FormData();
-        formdata.append("title", this.title);
-        formdata.append("content", this.content);
-        formdata.append("category", this.category);
-        formdata.append("imgUrl", document.getElementById("imgUrl").files[0]);
-        this.$axios
-          .post("/blog", formdata, {
-            headers: {
-              token: localStorage.getItem("token")
-            }
-          })
-          .then(() => {
-            this.start();
-            this.$notify({
-              type: "success",
-              text: "Data Berhasil ditambah"
-            });
-          })
-          .catch(err => {
-            this.$notify({
-              type: "error",
-              text: err.message
-            });
+        if (!document.getElementById("imgUrl").files[0]) {
+          this.$notify({
+            type: "error",
+            text: "File harus ditambahkan"
           });
+        } else {
+          let formdata = new FormData();
+          formdata.append("title", this.title);
+          formdata.append("content", this.content);
+          formdata.append("category", this.category);
+          formdata.append("imgUrl", document.getElementById("imgUrl").files[0]);
+          this.$axios
+            .post("/blog", formdata, {
+              headers: {
+                token: localStorage.getItem("token")
+              }
+            })
+            .then(() => {
+              this.start();
+              this.$notify({
+                type: "success",
+                text: "Data Berhasil ditambah"
+              });
+            })
+            .catch(err => {
+              this.$notify({
+                type: "error",
+                text: err.message
+              });
+            });
+        }
       }
     },
-    clear() {
+    clearing() {
       this.editId = null;
       this.title = "";
       this.category = "";

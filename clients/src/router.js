@@ -10,8 +10,6 @@ import BlogDetail from './views/BlogDetail.vue'
 Vue.use(Router)
 
 var router = new Router({
-  mode: 'history',
-  history:true,
   routes: [
     {
       path: '/',
@@ -46,7 +44,6 @@ var router = new Router({
     },
   ]
 })
-
 router.beforeEach((to, from, next) => {
   if (to.name=="dashboard") {
     if (localStorage.getItem("token")) {
